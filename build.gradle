@@ -1,0 +1,58 @@
+plugins {
+    id "org.springframework.boot" version "2.5.4"
+    id "org.jetbrains.kotlin.jvm" version "1.5.21"
+    id "org.jetbrains.kotlin.plugin.spring" version "1.5.21"
+    id "org.jetbrains.kotlin.plugin.noarg" version "1.5.21"
+}
+
+apply plugin: "io.spring.dependency-management"
+
+group = "com.ellska"
+version = "0.0.1-SNAPSHOT"
+sourceCompatibility = 11
+
+compileKotlin {
+    kotlinOptions {
+        freeCompilerArgs = ["-Xjsr305=strict"]
+        jvmTarget = "11"
+    }
+}
+compileTestKotlin {
+    kotlinOptions {
+        freeCompilerArgs = ["-Xjsr305=strict"]
+        jvmTarget = "11"
+    }
+}
+repositories {
+    jcenter()
+    mavenCentral()
+}
+
+test {
+    useJUnitPlatform()
+}
+
+dependencies {
+    implementation("org.springframework.boot:spring-boot-starter-web:2.5.4")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.12.5")
+    implementation("org.jetbrains.kotlin:kotlin-reflect:1.5.21")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.5.21")
+
+    // Start: Google content api
+    implementation("com.google.api-client:google-api-client:1.31.5")
+    implementation("com.google.http-client:google-http-client-jackson2:1.39.2")
+    implementation("com.google.auth:google-auth-library-oauth2-http:0.25.5")
+    implementation("com.google.apis:google-api-services-content:v2.1-rev20210827-1.32.1")
+    // End: Google content api
+
+    implementation "org.jetbrains.kotlin:kotlin-script-runtime:1.5.21"
+
+    runtimeOnly("mysql:mysql-connector-java:8.0.26")
+    testImplementation("org.springframework.boot:spring-boot-starter-test:2.5.4")
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.boot:spring-boot-starter-parent:2.5.4"
+    }
+}
